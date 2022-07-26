@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
 using WebConsumoApi.Interfaces;
 using WebConsumoApi.Models;
 
@@ -7,6 +8,7 @@ namespace WebConsumoApi.Controllers
 {
     public class ProdutosController : Controller
     {
+
         private readonly IProduto _IProduto;
         public ProdutosController(IProduto IProduto)
         {
@@ -14,15 +16,19 @@ namespace WebConsumoApi.Controllers
         }
 
         // GET: ProdutosController
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View(_IProduto.ListAsync());
+            var products = await _IProduto.ListAsync(); 
+            return View(products);
         }
 
         // GET: ProdutosController/Details/5
-        public ActionResult Details(string id)
+        public async Task<ActionResult> Details(ProductInsert product)
         {
-            return View(_IProduto.GetOne(id));
+            var products = await _IProduto.GetOne(product);
+
+            return View(products);
+
         }
 
         // GET: ProdutosController/Create
@@ -34,7 +40,7 @@ namespace WebConsumoApi.Controllers
         // POST: ProdutosController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product collection)
+        public ActionResult Create(ProductInsert collection)
         {
             try
             {
@@ -48,9 +54,9 @@ namespace WebConsumoApi.Controllers
         }
 
         // GET: ProdutosController/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(ProductInsert product)
         {
-            return View(_IProduto.GetOne(id));
+            return View(_IProduto.GetOne(product));
         }
 
         // POST: ProdutosController/Edit/5
@@ -70,9 +76,9 @@ namespace WebConsumoApi.Controllers
         }
 
         // GET: ProdutosController/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(ProductInsert product)
         {
-            return View(_IProduto.GetOne(id));
+            return View(_IProduto.GetOne(product));
         }
 
         // POST: ProdutosController/Delete/5

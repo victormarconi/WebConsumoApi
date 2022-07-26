@@ -4,11 +4,10 @@ namespace WebConsumoApi.Interfaces
 {
     public interface IProduto
     {
-        Task ListAsync();
-
-        Product Create(Product produto);
+        Task<IEnumerable<Product>> ListAsync();
+        Task<Product> Create(ProductInsert product);
         Product Update(Product produto);
-        Product GetOne(string Codigo);
+        Task<Product> GetOne(ProductInsert product);
         Product Delete(string Codigo);
 
     }

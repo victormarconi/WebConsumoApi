@@ -3,8 +3,9 @@
 
     public class Product
     {
-        public string sku { get; set; }
         public string name { get; set; }
+        public string sku { get; set; }
+        public string sku_manufacturer { get; set; }
         public string description { get; set; }
         public string status { get; set; }
         public int qty { get; set; }
@@ -25,5 +26,6 @@
         public string[] images { get; set; }
         public Published_Marketplace published_marketplace { get; set; }
         public Marketplace_Offer_Links[] marketplace_offer_links { get; set; }
+
     }
 }
