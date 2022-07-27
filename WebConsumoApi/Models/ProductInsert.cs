@@ -3,7 +3,7 @@
 
     public class RootobjectInsert
     {
-        public Product product { get; set; }
+        public ProductInsert product { get; set; }
     }
 
 

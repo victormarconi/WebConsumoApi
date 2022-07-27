@@ -7,5 +7,7 @@
         public int pages_count { get; set; }
         public int page { get; set; }
         public Datum[] data { get; set; }
+
+        public Product product { get; set; }
     }
 }

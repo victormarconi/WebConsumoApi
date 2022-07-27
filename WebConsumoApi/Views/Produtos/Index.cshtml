@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Criar Novo Produto</a>
 </p>
 <table class="table">
     <thead>
@@ -63,7 +63,7 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
-            <td>
+            <td height="10">
                 @Html.DisplayFor(modelItem => item.sku)
             </td>
             <td>
@@ -109,9 +109,9 @@
                 @Html.DisplayFor(modelItem => item.ean)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.sku }) |
+                @Html.ActionLink("Edit", "Edit", new { product = item.sku }) |
                 @Html.ActionLink("Details", "Details", new { product = item.sku }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.sku })
+                @Html.ActionLink("Delete", "Delete", new { product = item.sku })
             </td>
         </tr>
 }

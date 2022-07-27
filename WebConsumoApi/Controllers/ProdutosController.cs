@@ -23,28 +23,29 @@ namespace WebConsumoApi.Controllers
         }
 
         // GET: ProdutosController/Details/5
-        public async Task<ActionResult> Details(ProductInsert product)
+        public async Task<ActionResult> Details(string product)
         {
             var products = await _IProduto.GetOne(product);
-
             return View(products);
 
         }
 
         // GET: ProdutosController/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(string product)
         {
-            return View();
+            var products = await _IProduto.GetOne(product);
+            return View(products);
+
         }
 
         // POST: ProdutosController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(ProductInsert collection)
+        public async Task<ActionResult> Create(ProductInsert product, RootobjectInsert root)
         {
             try
             {
-                _IProduto.Create(collection);
+                _IProduto.Create(product, root);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -54,19 +55,21 @@ namespace WebConsumoApi.Controllers
         }
 
         // GET: ProdutosController/Edit/5
-        public ActionResult Edit(ProductInsert product)
+        public async Task<ActionResult> Edit(string product)
         {
-            return View(_IProduto.GetOne(product));
+            var products = await _IProduto.GetOne(product);
+            return View(products);
+
         }
 
         // POST: ProdutosController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Product collection)
+        public ActionResult Edit(string products, ProductInsert product, RootobjectInsert root)
         {
             try
             {
-                _IProduto.Update(collection);
+                _IProduto.Update(products, product, root);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -76,7 +79,7 @@ namespace WebConsumoApi.Controllers
         }
 
         // GET: ProdutosController/Delete/5
-        public ActionResult Delete(ProductInsert product)
+        public ActionResult Delete(string product)
         {
             return View(_IProduto.GetOne(product));
         }
@@ -84,12 +87,12 @@ namespace WebConsumoApi.Controllers
         // POST: ProdutosController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(string id, Product collection)
+        public ActionResult Delete(string id, string product)
         {
             try
             {
-                _IProduto.Delete(id);
-                return RedirectToAction(nameof(Index));
+                _IProduto.Delete(product);
+                return RedirectToAction(nameof(Delete));
             }
             catch
             {
