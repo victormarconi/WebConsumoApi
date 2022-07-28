@@ -3,7 +3,7 @@
 namespace WebConsumoApi.Models
 {
 
-    public class Product
+    public class Products
     {
 
         [Display(Name = "Produto")]

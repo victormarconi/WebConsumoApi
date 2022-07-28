@@ -1,8 +1,7 @@
-﻿
-namespace WebConsumoApi.Models
+﻿namespace WebConsumoApi.Models
 {
     public class Datum
     {
-        public Product product { get; set; }
+        public Products product { get; set; }
     }
 }

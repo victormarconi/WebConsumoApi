@@ -8,6 +8,6 @@
         public int page { get; set; }
         public Datum[] data { get; set; }
 
-        public Product product { get; set; }
+        public Products product { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace WebConsumoApi.Repository
     {
         private readonly string uprApi = "https://manairadigitalteste.conectala.com.br";
 
-        public async Task<Product> Create(ProductInsert product, RootobjectInsert root)
+        public async Task<Products> Create(ProductInsert product, RootobjectInsert root)
         {
             RootobjectInsert raiz = new RootobjectInsert() {
                     product = new ProductInsert() {
@@ -69,7 +69,7 @@ namespace WebConsumoApi.Repository
             //root?.result.data.ToList().ForEach(x => output.Add(x.product));
             return null;
         }
-        public async Task<Product> Delete(string product)
+        public async Task<Products> Delete(string product)
         {
             ProductInsert produtocriado = new ProductInsert();
             produtocriado.sku = product;
@@ -92,7 +92,7 @@ namespace WebConsumoApi.Repository
             var root = JsonSerializer.Deserialize<Rootobject>(responseBody);
             return root.result.product;
         }
-        public async Task<Product> GetOne(string product)
+        public async Task<Products> GetOne(string product)
         {
             ProductInsert produtocriado = new ProductInsert();
             produtocriado.sku = product;
@@ -116,7 +116,7 @@ namespace WebConsumoApi.Repository
             return root.result.product;
 
         }
-        public async Task<IEnumerable<Product>> ListAsync()
+        public async Task<IEnumerable<Products>> ListAsync()
             {
                 var client = new HttpClient
                 {
@@ -134,11 +134,11 @@ namespace WebConsumoApi.Repository
                 res.EnsureSuccessStatusCode();
                 var responseBody = await res.Content.ReadAsStringAsync();
                 var root = JsonSerializer.Deserialize<Rootobject>(responseBody);
-                var output = new List<Product>();
+                var output = new List<Products>();
                 root?.result.data.ToList().ForEach(x => output.Add(x.product));
                 return output;
             }
-        public async Task<Product> Update(string products, ProductInsert product, RootobjectInsert root)
+        public async Task<Products> Update(string products, ProductInsert product, RootobjectInsert root)
             {
             ProductInsert produtocriado = new ProductInsert();
             produtocriado.sku = products;

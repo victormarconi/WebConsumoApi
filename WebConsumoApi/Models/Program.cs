@@ -1,11 +1,12 @@
 using WebConsumoApi.Interfaces;
+using WebConsumoApi.Models;
 using WebConsumoApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddDbContext<DbProdutosContext>();
 builder.Services.AddSingleton<IProduto, RepositoryProduto>();
 
 var app = builder.Build();
@@ -30,8 +31,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
-
-
-namespace WebConsumoApi.Models
-{
-}
