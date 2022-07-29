@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using WebConsumoApi.Models;
 
-namespace WebConsumoApi.Models
+namespace WebConsumoApi.ViewModels
 {
     public partial class DbProdutosContext : DbContext
     {
@@ -23,7 +24,7 @@ namespace WebConsumoApi.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;DataBase=DbProdutos;Integrated Security=true");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB; DataBase=DbProdutos;Integrated Security=true");
             }
         }
 
@@ -36,27 +37,98 @@ namespace WebConsumoApi.Models
 
                 entity.ToTable("PRODUTOS");
 
-                entity.Property(e => e.Sku).HasColumnName("sku");
-
-                entity.Property(e => e.IdItem)
-                    .HasMaxLength(20)
+                entity.Property(e => e.Sku)
+                    .HasMaxLength(30)
                     .IsUnicode(false)
-                    .HasColumnName("id_Item");
+                    .HasColumnName("sku");
 
-                entity.Property(e => e.NomeItem)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("nome_Item");
-
-                entity.Property(e => e.PrecoPor)
+                entity.Property(e => e.Active)
                     .HasMaxLength(10)
                     .IsUnicode(false)
-                    .HasColumnName("preco_por");
+                    .HasColumnName("active");
 
-                entity.Property(e => e.QtdEstoque)
-                    .HasMaxLength(3)
+                entity.Property(e => e.Category)
+                    .HasMaxLength(50)
                     .IsUnicode(false)
-                    .HasColumnName("qtd_Estoque");
+                    .HasColumnName("category");
+
+                entity.Property(e => e.Depth)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("depth");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(2000)
+                    .IsUnicode(false)
+                    .HasColumnName("description");
+
+                entity.Property(e => e.Ean)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ean");
+
+                entity.Property(e => e.ExtraOperatingTime).HasColumnName("extra_operating_time");
+
+                entity.Property(e => e.GrossWeight)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("gross_weight");
+
+                entity.Property(e => e.Guarantee).HasColumnName("guarantee");
+
+                entity.Property(e => e.Height)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("height");
+
+                entity.Property(e => e.Images)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("images");
+
+                entity.Property(e => e.Manufacturer)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("manufacturer");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Ncm)
+                    .HasMaxLength(8)
+                    .IsUnicode(false)
+                    .HasColumnName("ncm");
+
+                entity.Property(e => e.NetWeight)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("net_weight");
+
+                entity.Property(e => e.Origin).HasColumnName("origin");
+
+                entity.Property(e => e.Price)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("price");
+
+                entity.Property(e => e.Qty).HasColumnName("qty");
+
+                entity.Property(e => e.SkuManufacturer)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("sku_manufacturer");
+
+                entity.Property(e => e.Unity)
+                    .HasMaxLength(2)
+                    .IsUnicode(false)
+                    .HasColumnName("unity");
+
+                entity.Property(e => e.Width)
+                    .HasMaxLength(10)
+                    .IsUnicode(false)
+                    .HasColumnName("width");
             });
 
             OnModelCreatingPartial(modelBuilder);

@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using WebConsumoApi.Models;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using WebConsumoApi.Models.ViewModels;
-
 
 namespace WebConsumoApi.Controllers
 {
@@ -45,10 +43,23 @@ namespace WebConsumoApi.Controllers
 
                 lista.Add(new VMProduto
                 {
-                    id_Item = fila.GetCell(0).ToString(),
-                    nome_Item = fila.GetCell(1).ToString(),
-                    qtd_Estoque = fila.GetCell(2).ToString(),
-                    preco_por = fila.GetCell(3).ToString(),
+                    name = fila.GetCell(0).ToString(),
+                    sku = fila.GetCell(1).ToString(),
+                   /*description = fila.GetCell(2).ToString(),
+                    price = fila.GetCell(3).ToString(),
+                    qty = fila.GetCell(4).ToString(),
+                    ean = fila.GetCell(5).ToString(),
+                    sku_manufacturer = fila.GetCell(6).ToString(),
+                    net_weight = fila.GetCell(7).ToString(),
+                    gross_weight = fila.GetCell(8).ToString(),
+                    width = fila.GetCell(9).ToString(),
+                    height = fila.GetCell(10).ToString(),
+                    depth = fila.GetCell(11).ToString(),
+                    guarantee = fila.GetCell(12).ToString(),
+                    ncm = fila.GetCell(13).ToString(),
+                    manufacturer = fila.GetCell(14).ToString(),
+                    category = fila.GetCell(15).ToString(),
+                    images = fila.GetCell(16).ToString(), */
 
                 });
             }

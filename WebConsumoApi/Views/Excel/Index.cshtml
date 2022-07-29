@@ -27,10 +27,8 @@
                         <table id="tbData" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID Item</th>
-                                    <th>Nome Item</th>
-                                    <th>Qtd Estoque</th>
-                                    <th>Preço Por</th>
+                                    <th>name</th>
+                                    <th>Sku</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,10 +66,23 @@
                 dataJson.forEach((item) => {
                     $("#tbData tbody").append(
                         $("<tr>").append(
-                            $("<td>").text(item.id_Item),
-                            $("<td>").text(item.nome_Item),
-                            $("<td>").text(item.qtd_Estoque),
-                            $("<td>").text(item.preco_por)
+                            $("<td>").text(item.name),
+                            $("<td>").text(item.sku),
+                         /*   $("<td>").text(item.description),
+                            $("<td>").text(item.price),
+                            $("<td>").text(item.qty),
+                            $("<td>").text(item.ean),
+                            $("<td>").text(item.sku_manufacturer),
+                            $("<td>").text(item.net_weight),
+                            $("<td>").text(item.gross_weight),
+                            $("<td>").text(item.width),
+                            $("<td>").text(item.height),
+                            $("<td>").text(item.depth),
+                            $("<td>").text(item.guarantee),
+                            $("<td>").text(item.ncm),
+                            $("<td>").text(item.manufacturer),
+                            $("<td>").text(item.category),
+                            $("<td>").text(item.images), */
                         )
                     
                     )

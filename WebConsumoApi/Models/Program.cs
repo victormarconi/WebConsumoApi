@@ -1,6 +1,6 @@
 using WebConsumoApi.Interfaces;
-using WebConsumoApi.Models;
 using WebConsumoApi.Repository;
+using WebConsumoApi.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 

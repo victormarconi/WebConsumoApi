@@ -4,8 +4,9 @@ using WebConsumoApi.Models;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
-using WebConsumoApi.Models.ViewModels;
 using EFCore.BulkExtensions;
+using WebConsumoApi.ViewModels;
+using WebConsumoApi.Models.ViewModels;
 
 namespace WebConsumoApi.Controllers
 {
@@ -41,27 +42,42 @@ namespace WebConsumoApi.Controllers
 
             ISheet HojaExcel = MeuExcel.GetSheetAt(0);
 
-            int cantidadFilas = HojaExcel.LastRowNum;
+            int cantidadFilas2 = HojaExcel.LastRowNum;
+            int cantidadFilas = HojaExcel.PhysicalNumberOfRows;
 
             List<VMProduto> lista = new List<VMProduto>();
 
-            for (int i = 1; i <= cantidadFilas; i++)
+            for (int i = 1; i <= cantidadFilas2; i++)
             {
 
                 IRow fila = HojaExcel.GetRow(i);
-
+                
                 lista.Add(new VMProduto
                 {
-                    id_Item = fila.GetCell(0).ToString(),
-                    nome_Item = fila.GetCell(1).ToString(),
-                    qtd_Estoque = fila.GetCell(2).ToString(),
-                    preco_por = fila.GetCell(3).ToString(),
+                    name = fila.GetCell(0).ToString(),
+                    sku = fila.GetCell(1).ToString(),
+                    description = fila.GetCell(2).ToString(),
+                    price = fila.GetCell(3).ToString(),
+                    qty = fila.GetCell(4).ToString(),
+                    ean = fila.GetCell(5).ToString(),
+                    sku_manufacturer = fila.GetCell(6).ToString(),
+                    net_weight = fila.GetCell(7).ToString(),
+                    gross_weight = fila.GetCell(8).ToString(),
+                    width = fila.GetCell(9).ToString(),
+                    height = fila.GetCell(10).ToString(),
+                    depth = fila.GetCell(11).ToString(),
+                    guarantee = fila.GetCell(12).ToString(),
+                    ncm = fila.GetCell(13).ToString(),
+                    manufacturer = fila.GetCell(14).ToString(),
+                    category = fila.GetCell(15).ToString(),
+                    images = fila.GetCell(16).ToString(),
 
                 });
             } 
+            
 
             return StatusCode(StatusCodes.Status200OK, lista);
-        }
+        }  
 
         public IActionResult Privacy()
         {
@@ -97,11 +113,23 @@ namespace WebConsumoApi.Controllers
 
                 lista.Add(new Produto
                 {
-                    IdItem = fila.GetCell(0).ToString(),
-                    NomeItem = fila.GetCell(1).ToString(),
-                    QtdEstoque = fila.GetCell(2).ToString(),
-                    PrecoPor = fila.GetCell(3).ToString(),
-
+                    Name = fila.GetCell(0).ToString(),
+                    Sku = fila.GetCell(1).ToString(),
+                    Description = fila.GetCell(2).ToString(),
+                    Price = fila.GetCell(3).ToString(),
+                    Qty = fila.GetCell(4).ToString(),
+                    Ean = fila.GetCell(5).ToString(),
+                    SkuManufacturer = fila.GetCell(6).ToString(),
+                    NetWeight = fila.GetCell(7).ToString(),
+                    GrossWeight = fila.GetCell(8).ToString(),
+                    Width = fila.GetCell(9).ToString(),
+                    Height = fila.GetCell(10).ToString(),
+                    Depth = fila.GetCell(11).ToString(),
+                    Guarantee = fila.GetCell(12).ToString(),
+                    Ncm = fila.GetCell(13).ToString(),
+                    Manufacturer = fila.GetCell(14).ToString(),
+                    Category = fila.GetCell(15).ToString(),
+                    Images = fila.GetCell(16).ToString(),
                 });
             }
 
