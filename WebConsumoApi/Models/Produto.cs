@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace WebConsumoApi.Models
 {
+
     public partial class Produto
     {
         public string Name { get; set; }

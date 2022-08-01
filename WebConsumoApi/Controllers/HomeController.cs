@@ -21,7 +21,8 @@ namespace WebConsumoApi.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            DbProdutosContext dbProdutosContext = new DbProdutosContext();
+            return View(dbProdutosContext.Produtos.ToList());
         }
 
         [HttpPost]
@@ -103,6 +104,7 @@ namespace WebConsumoApi.Controllers
             ISheet HojaExcel = MiExcel.GetSheetAt(0);
 
             int cantidadFilas = HojaExcel.LastRowNum;
+            int cantidadFilas2 = HojaExcel.PhysicalNumberOfRows;
 
             List<Produto> lista = new List<Produto>();
 
@@ -115,21 +117,25 @@ namespace WebConsumoApi.Controllers
                 {
                     Name = fila.GetCell(0).ToString(),
                     Sku = fila.GetCell(1).ToString(),
-                    Description = fila.GetCell(2).ToString(),
-                    Price = fila.GetCell(3).ToString(),
-                    Qty = fila.GetCell(4).ToString(),
-                    Ean = fila.GetCell(5).ToString(),
-                    SkuManufacturer = fila.GetCell(6).ToString(),
-                    NetWeight = fila.GetCell(7).ToString(),
-                    GrossWeight = fila.GetCell(8).ToString(),
-                    Width = fila.GetCell(9).ToString(),
-                    Height = fila.GetCell(10).ToString(),
-                    Depth = fila.GetCell(11).ToString(),
-                    Guarantee = fila.GetCell(12).ToString(),
-                    Ncm = fila.GetCell(13).ToString(),
-                    Manufacturer = fila.GetCell(14).ToString(),
-                    Category = fila.GetCell(15).ToString(),
-                    Images = fila.GetCell(16).ToString(),
+                    Active = fila.GetCell(2).ToString(),
+                    Description = fila.GetCell(3).ToString(),
+                    Price = fila.GetCell(4).ToString(),
+                    Qty = fila.GetCell(5).ToString(),
+                    Ean = fila.GetCell(6).ToString(),
+                    SkuManufacturer = fila.GetCell(7).ToString(),
+                    NetWeight = fila.GetCell(8).ToString(),
+                    GrossWeight = fila.GetCell(9).ToString(),
+                    Width = fila.GetCell(10).ToString(),
+                    Height = fila.GetCell(11).ToString(),
+                    Depth = fila.GetCell(12).ToString(),
+                    Guarantee = fila.GetCell(13).ToString(),
+                    Origin = fila.GetCell(14).ToString(),
+                    Unity = fila.GetCell(15).ToString(),
+                    Ncm = fila.GetCell(16).ToString(),
+                    Manufacturer = fila.GetCell(17).ToString(),
+                    ExtraOperatingTime = fila.GetCell(18).ToString(),
+                    Category = fila.GetCell(19).ToString(),
+                    Images = fila.GetCell(20).ToString(),
                 });
             }
 
