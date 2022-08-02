@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DbProdutosContext>();
 builder.Services.AddSingleton<IProduto, RepositoryProduto>();
+builder.Services.AddSingleton<IProduct, RepositoryProduct>();
 
 var app = builder.Build();
 

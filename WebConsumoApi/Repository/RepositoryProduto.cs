@@ -1,16 +1,19 @@
 ﻿using Microsoft.Net.Http.Headers;
+using System.Data.Entity;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using WebConsumoApi.Interfaces;
 using WebConsumoApi.Models;
+using WebConsumoApi.ViewModels;
 
 namespace WebConsumoApi.Repository
 {
+
     public class RepositoryProduto : IProduto
     {
         private readonly string uprApi = "https://manairadigitalteste.conectala.com.br";
-
+        private readonly DbProdutosContext _context;
         public async Task<Products> Create(ProductInsert product, RootobjectInsert root)
         {
             RootobjectInsert raiz = new RootobjectInsert() {

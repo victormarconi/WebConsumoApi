@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System.Data.Entity;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebConsumoApi.Interfaces;
 using WebConsumoApi.Models;
 
@@ -22,6 +20,7 @@ namespace WebConsumoApi.Controllers
             return View(products);
         }
 
+
         // GET: ProdutosController/Details/5
         public async Task<ActionResult> Details(string product)
         {
@@ -33,8 +32,8 @@ namespace WebConsumoApi.Controllers
         // GET: ProdutosController/Create
         public async Task<ActionResult> Create(string product)
         {
-            var products = await _IProduto.GetOne(product);
-            return View(products);
+          //  var products = await _IProduto.GetOne(product);
+            return View();
 
         }
 

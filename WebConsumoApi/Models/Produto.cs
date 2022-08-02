@@ -27,8 +27,6 @@ namespace WebConsumoApi.Models
         public string ExtraOperatingTime { get; set; }
         public string Category { get; set; }
         public string Images { get; set; }
-
-
-
+        public int Status { get; set; }
     }
 }

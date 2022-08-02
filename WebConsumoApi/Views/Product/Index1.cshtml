@@ -1,18 +1,15 @@
 ﻿@model IEnumerable<WebConsumoApi.Models.Produto>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Send";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Send</h1>
 
 <p>
-    <a asp-action="Create">Criar novo produto</a>
-    &nbsp; &nbsp; &nbsp;
-    <a asp-action="Index1">Produtos não enviados</a>
+    <a asp-action="CreateDatabase">Enviar produtos</a>
 </p>
-
 <table class="table">
     <thead>
         <tr>
