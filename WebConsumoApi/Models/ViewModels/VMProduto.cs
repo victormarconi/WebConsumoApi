@@ -4,6 +4,7 @@
     {
         public string name { get; set; }
         public string sku { get; set; }
+        public string active { get; set; }
         public string description { get; set; }
         public string price { get; set; }
         public string qty { get; set; }
@@ -15,9 +16,13 @@
         public string height { get; set; }
         public string depth { get; set; }
         public string guarantee { get; set; }
+        public string origin { get; set; }
+        public string unity { get; set; }
         public string ncm { get; set; }
         public string manufacturer { get; set; }
+        public string extra_operating_time { get; set; }
         public string category { get; set; }
         public string images { get; set; }
+        
     }
 }

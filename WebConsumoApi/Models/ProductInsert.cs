@@ -19,9 +19,9 @@
         public string sku_manufacturer { get; set; }
         public float net_weight { get; set; }
         public float gross_weight { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-        public int depth { get; set; }
+        public float width { get; set; }
+        public float height { get; set; }
+        public float depth { get; set; }
         public int items_per_package { get; set; }
         public int guarantee { get; set; }
         public int origin { get; set; }
@@ -30,7 +30,8 @@
         public string manufacturer { get; set; }
         public int extra_operating_time { get; set; }
         public string category { get; set; }
-        public string[] images { get; set; }
+        public string images { get; set; }
+       // public List<string> images { get; set; }
     }
 
 }

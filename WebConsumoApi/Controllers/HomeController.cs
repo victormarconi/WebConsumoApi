@@ -7,12 +7,14 @@ using NPOI.HSSF.UserModel;
 using EFCore.BulkExtensions;
 using WebConsumoApi.ViewModels;
 using WebConsumoApi.Models.ViewModels;
+using MySqlConnector;
+using System.Data.SqlClient;
 
 namespace WebConsumoApi.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly DbProdutosContext _dbocontext;
+         private readonly DbProdutosContext _dbocontext;
 
         public HomeController(DbProdutosContext context)
         {
@@ -105,14 +107,14 @@ namespace WebConsumoApi.Controllers
             int cantidadFilas = HojaExcel.LastRowNum;
             int cantidadFilas2 = HojaExcel.PhysicalNumberOfRows;
 
-            List<Produto> lista = new List<Produto>();
-
-            for (int i = 1; i <= cantidadFilas; i++)
+            List<ProdutoDB> lista = new List<ProdutoDB>();
+   
+             for (int i = 1; i <= cantidadFilas; i++)
             {
 
                 IRow fila = HojaExcel.GetRow(i);
 
-                lista.Add(new Produto
+                lista.Add(new ProdutoDB
                 {
                     Name = fila.GetCell(0).ToString(),
                     Sku = fila.GetCell(1).ToString(),
@@ -135,12 +137,19 @@ namespace WebConsumoApi.Controllers
                     ExtraOperatingTime = fila.GetCell(18).ToString(),
                     Category = fila.GetCell(19).ToString(),
                     Images = fila.GetCell(20).ToString(),
+                    Status = fila.GetCell(21).ToString()
                 });
             }
-
             _dbocontext.BulkInsert(lista);
+       /*     if (ModelState.IsValid)
+            {
+                _dbocontext.Add(lista);
+                await _dbocontext.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(); */
 
-            return StatusCode(StatusCodes.Status200OK, new { mensaje = "Os dados foram carregados com sucesso!" });
+           return StatusCode(StatusCodes.Status200OK, new { mensaje = "Os dados foram carregados com sucesso!" });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

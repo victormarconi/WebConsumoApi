@@ -13,7 +13,6 @@ namespace WebConsumoApi.Repository
     public class RepositoryProduto : IProduto
     {
         private readonly string uprApi = "https://manairadigitalteste.conectala.com.br";
-        private readonly DbProdutosContext _context;
         public async Task<Products> Create(ProductInsert product, RootobjectInsert root)
         {
             RootobjectInsert raiz = new RootobjectInsert() {

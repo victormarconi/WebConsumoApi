@@ -13,12 +13,12 @@ using WebConsumoApi.ViewModels;
 
 namespace WebConsumoApi.Controllers
 {
-    public class ProductController : Controller
+    public class ProductDBController : Controller
     {
         private readonly DbProdutosContext _context;
-        private readonly IProduct _IProduct;
+        private readonly IProductDB _IProduct;
 
-        public ProductController(DbProdutosContext context, IProduct IProduct)
+        public ProductDBController(DbProdutosContext context, IProductDB IProduct)
         {
             _IProduct = IProduct;
             _context = context;
@@ -36,18 +36,42 @@ namespace WebConsumoApi.Controllers
         public async Task<IActionResult> Index1()
         {
             var Produto = await _context.Produtos.ToListAsync();
-              return View(Produto.Where<Produto>(p => p.Status == 0));
+              return View(Produto.Where<ProdutoDB>(p => p.Status == "0"));
         }
-        public async Task<ActionResult> CreateDatabase(ProductInsert product, RootobjectInsert root)
+        public async Task<ActionResult> CreateDatabase(ProductInsert productconvert)
         {
-            var Produto = await _context.Produtos.ToListAsync();
-            var Produtos = Produto.Where<Produto>(p => p.Status == 0);
+            var Produtos = await _context.Produtos.Where<ProdutoDB>(p => p.Status == "0").ToListAsync();
 
-            var output = new List<Produto>();
-
-            foreach (var item in Produtos)
+            foreach (ProdutoDB produto in Produtos)
             {
-                string jsonObjeto = JsonSerializer.Serialize(Produtos);
+                RootobjectInsert raiz = new RootobjectInsert() {
+                     product = new ProductInsert()
+                {
+                    name = produto.Name,
+                    sku = produto.Sku,
+                    active = produto.Active,
+                    description = produto.Description,
+                    price = Convert.ToSingle(produto.Price),
+                    qty = Convert.ToInt32(produto.Qty),
+                    ean = produto.Ean,
+                    sku_manufacturer = produto.SkuManufacturer,
+                    net_weight = Convert.ToSingle(produto.NetWeight),
+                    gross_weight = Convert.ToSingle(produto.GrossWeight),
+                    width = Convert.ToSingle(produto.Width),
+                    height = Convert.ToSingle(produto.Height),
+                    depth = Convert.ToSingle(produto.Depth),
+                    items_per_package = 1,
+                    guarantee = Convert.ToInt32(produto.Guarantee),
+                    origin = Convert.ToInt32(produto.Origin),
+                    unity = produto.Unity,
+                    ncm = produto.Ncm,
+                    manufacturer = produto.Manufacturer,
+                    extra_operating_time = Convert.ToInt32(produto.ExtraOperatingTime),
+                    category = produto.Category,
+                    images = produto.Images,
+            } };
+
+                string jsonObjeto = JsonSerializer.Serialize(raiz);
                 var client = new HttpClient
                 {
                     BaseAddress = new Uri("https://manairadigitalteste.conectala.com.br")
@@ -66,6 +90,14 @@ namespace WebConsumoApi.Controllers
                     //res.EnsureSuccessStatusCode();
                     var responseBody = await res.Content.ReadAsStringAsync();
                     var roots = JsonSerializer.Deserialize<Rootobject>(responseBody);
+                   if(res.IsSuccessStatusCode == true)
+                    {
+                        produto.Status = "1";
+                    }
+                    else
+                    {
+                        produto.Status = "2";
+                    }
                 }
                 catch (Exception)
                 {
@@ -104,7 +136,7 @@ namespace WebConsumoApi.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Sku,Active,Description,Price,Qty,Ean,SkuManufacturer,NetWeight,GrossWeight,Width,Height,Depth,Guarantee,Origin,Unity,Ncm,Manufacturer,ExtraOperatingTime,Category,Images")] Produto produto)
+        public async Task<IActionResult> Create([Bind("Name,Sku,Active,Description,Price,Qty,Ean,SkuManufacturer,NetWeight,GrossWeight,Width,Height,Depth,Guarantee,Origin,Unity,Ncm,Manufacturer,ExtraOperatingTime,Category,Images, Status")] ProdutoDB produto)
         {
             if (ModelState.IsValid)
             {
@@ -136,7 +168,7 @@ namespace WebConsumoApi.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,Sku,Active,Description,Price,Qty,Ean,SkuManufacturer,NetWeight,GrossWeight,Width,Height,Depth,Guarantee,Origin,Unity,Ncm,Manufacturer,ExtraOperatingTime,Category,Images")] Produto produto)
+        public async Task<IActionResult> Edit(string id, [Bind("Name,Sku,Active,Description,Price,Qty,Ean,SkuManufacturer,NetWeight,GrossWeight,Width,Height,Depth,Guarantee,Origin,Unity,Ncm,Manufacturer,ExtraOperatingTime,Category,Images")] ProdutoDB produto)
         {
             if (id != produto.Sku)
             {

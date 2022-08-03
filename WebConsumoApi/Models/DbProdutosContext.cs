@@ -17,7 +17,7 @@ namespace WebConsumoApi.ViewModels
         {
         }
 
-        public virtual DbSet<Produto> Produtos { get; set; } = null!;
+        public virtual DbSet<ProdutoDB> Produtos { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,7 +30,7 @@ namespace WebConsumoApi.ViewModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Produto>(entity =>
+            modelBuilder.Entity<ProdutoDB>(entity =>
             {
                 entity.HasKey(e => e.Sku)
                     .HasName("PK__PRODUCTS__DDDF4BE68D1ADA23");
@@ -45,7 +45,8 @@ namespace WebConsumoApi.ViewModels
                 entity.Property(e => e.Active)
                     .HasMaxLength(10)
                     .IsUnicode(false)
-                    .HasColumnName("active");
+                    .HasColumnName("active")
+                    .HasDefaultValueSql("('enabled')");
 
                 entity.Property(e => e.Category)
                     .HasMaxLength(50)
@@ -67,14 +68,20 @@ namespace WebConsumoApi.ViewModels
                     .IsUnicode(false)
                     .HasColumnName("ean");
 
-                entity.Property(e => e.ExtraOperatingTime).HasColumnName("extra_operating_time");
+                entity.Property(e => e.ExtraOperatingTime)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("extra_operating_time");
 
                 entity.Property(e => e.GrossWeight)
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("gross_weight");
 
-                entity.Property(e => e.Guarantee).HasColumnName("guarantee");
+                entity.Property(e => e.Guarantee)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("guarantee");
 
                 entity.Property(e => e.Height)
                     .HasMaxLength(10)
@@ -82,7 +89,7 @@ namespace WebConsumoApi.ViewModels
                     .HasColumnName("height");
 
                 entity.Property(e => e.Images)
-                    .HasMaxLength(150)
+                    .HasMaxLength(500)
                     .IsUnicode(false)
                     .HasColumnName("images");
 
@@ -106,22 +113,34 @@ namespace WebConsumoApi.ViewModels
                     .IsUnicode(false)
                     .HasColumnName("net_weight");
 
-                entity.Property(e => e.Origin).HasColumnName("origin");
+                entity.Property(e => e.Origin)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("origin");
 
                 entity.Property(e => e.Price)
                     .HasMaxLength(10)
                     .IsUnicode(false)
                     .HasColumnName("price");
 
-                entity.Property(e => e.Qty).HasColumnName("qty");
+                entity.Property(e => e.Qty)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("qty");
 
                 entity.Property(e => e.SkuManufacturer)
                     .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("sku_manufacturer");
 
+                entity.Property(e => e.Status)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("status")
+                    .HasDefaultValueSql("((0))");
+
                 entity.Property(e => e.Unity)
-                    .HasMaxLength(2)
+                    .HasMaxLength(50)
                     .IsUnicode(false)
                     .HasColumnName("unity");
 

@@ -2,7 +2,7 @@
 
 namespace WebConsumoApi.Interfaces
 {
-    public interface IProduct
+    public interface IProductDB
     {
        Task<Products> CreateDatabase(ProductInsert product, RootobjectInsert root);
     }

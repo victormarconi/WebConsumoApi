@@ -7,16 +7,16 @@ using WebConsumoApi.Interfaces;
 
 namespace WebConsumoApi.Repository
 {
-    public class RepositoryProduct : IProduct
+    public class RepositoryProductDB : IProductDB
     {
         private readonly DbProdutosContext _context;
         public async Task<Products> CreateDatabase(ProductInsert product, RootobjectInsert root)
         {
 
             var Produto = await _context.Produtos.ToListAsync();
-            var Produtos = Produto.Where<Produto>(p => p.Status == 0);
+            var Produtos = Produto.Where<ProdutoDB>(p => p.Status == "0");
 
-            var output = new List<Produto>();
+            var output = new List<ProdutoDB>();
 
             foreach (var item in Produtos)
             {
