@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebConsumoApi.Interfaces;
 using WebConsumoApi.Models;
-using WebConsumoApi.ViewModels;
+using WebConsumoApi.Models.ViewModels;
 
 namespace WebConsumoApi.Controllers
 {

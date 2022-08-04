@@ -1,9 +1,9 @@
 ﻿using WebConsumoApi.Models;
 using System.Text.Json;
-using WebConsumoApi.ViewModels;
 using System.Text;
-using System.Data.Entity;
 using WebConsumoApi.Interfaces;
+using WebConsumoApi.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebConsumoApi.Repository
 {

@@ -1,13 +1,16 @@
+using Microsoft.EntityFrameworkCore;
 using WebConsumoApi.Interfaces;
+using WebConsumoApi.Models;
+using WebConsumoApi.Models.ViewModels;
 using WebConsumoApi.Repository;
-using WebConsumoApi.ViewModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<DbProdutosContext>();
-builder.Services.AddSingleton<IProduto, RepositoryProduto>();
+builder.Services.AddDbContext<DbProdutosContext>
+    (options => options.UseSqlServer("Server=LAPTOP-SN3G0PN2\\SQLEXPRESS; DataBase=DbProdutos;Integrated Security=true"));
+builder.Services.AddScoped<IProduto, RepositoryProduto>();
 builder.Services.AddSingleton<IProductDB, RepositoryProductDB>();
 
 var app = builder.Build();

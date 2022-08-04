@@ -5,7 +5,6 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.HSSF.UserModel;
 using EFCore.BulkExtensions;
-using WebConsumoApi.ViewModels;
 using WebConsumoApi.Models.ViewModels;
 using MySqlConnector;
 using System.Data.SqlClient;
@@ -23,8 +22,9 @@ namespace WebConsumoApi.Controllers
 
         public IActionResult Index()
         {
-            DbProdutosContext dbProdutosContext = new DbProdutosContext();
-            return View(dbProdutosContext.Produtos.ToList());
+            //  DbProdutosContext dbProdutosContext = new DbProdutosContext();
+            //  return View(dbProdutosContext.ProdutoDB.ToList());
+            return View();
         }
 
         [HttpPost]
@@ -140,14 +140,8 @@ namespace WebConsumoApi.Controllers
                     Status = fila.GetCell(21).ToString()
                 });
             }
-            _dbocontext.BulkInsert(lista);
-       /*     if (ModelState.IsValid)
-            {
-                _dbocontext.Add(lista);
-                await _dbocontext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(); */
+                  _dbocontext.BulkInsert(lista);
+
 
            return StatusCode(StatusCodes.Status200OK, new { mensaje = "Os dados foram carregados com sucesso!" });
         }

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebConsumoApi.Models
 {
     public partial class ProdutoDB
     {
         public string Name { get; set; } = null!;
+        [Key]
         public string Sku { get; set; } = null!;
         public string Active { get; set; } = null!;
         public string Description { get; set; } = null!;

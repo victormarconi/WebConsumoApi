@@ -32,7 +32,7 @@ namespace WebConsumoApi.Controllers
         // GET: ProdutosController/Create
         public async Task<ActionResult> Create(string product)
         {
-          //  var products = await _IProduto.GetOne(product);
+            var products = await _IProduto.GetOne(product);
             return View();
 
         }
