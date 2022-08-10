@@ -6,7 +6,6 @@ namespace WebConsumoApi.Models.ViewModels
     {
         public DbProdutosContext(DbContextOptions<DbProdutosContext> options) : base(options)
         {
-
         }
         public DbSet<ProdutoDB> Produtos { get; set; }
     }

@@ -6,14 +6,19 @@ namespace WebConsumoApi.Models
 {
     public partial class ProdutoDB
     {
+        [Display(Name = "Nome")]
         public string Name { get; set; } = null!;
         [Key]
         public string Sku { get; set; } = null!;
+        [Display(Name = "Ativo")]
         public string Active { get; set; } = null!;
         public string Description { get; set; } = null!;
+        [Display(Name = "Preço")]
         public string Price { get; set; } = null!;
+        [Display(Name = "Estoque")]
         public string Qty { get; set; } = null!;
         public string Ean { get; set; } = null!;
+        [Display(Name = "Marca")]
         public string SkuManufacturer { get; set; } = null!;
         public string NetWeight { get; set; } = null!;
         public string GrossWeight { get; set; } = null!;

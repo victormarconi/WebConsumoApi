@@ -13,7 +13,7 @@ namespace WebConsumoApi.Controllers
 {
     public class HomeController : Controller
     {
-         private readonly DbProdutosContext _dbocontext;
+          private readonly DbProdutosContext _dbocontext;
 
         public HomeController(DbProdutosContext context)
         {
@@ -79,7 +79,7 @@ namespace WebConsumoApi.Controllers
                 }
                 return StatusCode(StatusCodes.Status200OK, lista);
             }          
-        }  
+        } 
 
         public IActionResult Privacy()
         {
@@ -87,64 +87,60 @@ namespace WebConsumoApi.Controllers
         }
 
          [HttpPost]
-        public IActionResult EnviarDados([FromForm] IFormFile ArquivoExcel)
+        public IActionResult EnviarDadosAsync([FromForm] IFormFile ArquivoExcel) //Método enviar dados
         {
-            Stream stream = ArquivoExcel.OpenReadStream();
+                Stream stream = ArquivoExcel.OpenReadStream(); //Lendo arquivo excel
+                IWorkbook MiExcel = null;
 
-            IWorkbook MiExcel = null;
-
-            if (Path.GetExtension(ArquivoExcel.FileName) == ".xlsx")
-            {
-                MiExcel = new XSSFWorkbook(stream);
-            }
-            else
-            {
-                MiExcel = new HSSFWorkbook(stream);
-            }
-
-            ISheet HojaExcel = MiExcel.GetSheetAt(0);
-
-            int cantidadFilas = HojaExcel.LastRowNum;
-            int cantidadFilas2 = HojaExcel.PhysicalNumberOfRows;
-
-            List<ProdutoDB> lista = new List<ProdutoDB>();
-   
-             for (int i = 1; i <= cantidadFilas; i++)
-            {
-
-                IRow fila = HojaExcel.GetRow(i);
-
-                lista.Add(new ProdutoDB
+                if (Path.GetExtension(ArquivoExcel.FileName) == ".xlsx")
                 {
-                    Name = fila.GetCell(0).ToString(),
-                    Sku = fila.GetCell(1).ToString(),
-                    Active = fila.GetCell(2).ToString(),
-                    Description = fila.GetCell(3).ToString(),
-                    Price = fila.GetCell(4).ToString(),
-                    Qty = fila.GetCell(5).ToString(),
-                    Ean = fila.GetCell(6).ToString(),
-                    SkuManufacturer = fila.GetCell(7).ToString(),
-                    NetWeight = fila.GetCell(8).ToString(),
-                    GrossWeight = fila.GetCell(9).ToString(),
-                    Width = fila.GetCell(10).ToString(),
-                    Height = fila.GetCell(11).ToString(),
-                    Depth = fila.GetCell(12).ToString(),
-                    Guarantee = fila.GetCell(13).ToString(),
-                    Origin = fila.GetCell(14).ToString(),
-                    Unity = fila.GetCell(15).ToString(),
-                    Ncm = fila.GetCell(16).ToString(),
-                    Manufacturer = fila.GetCell(17).ToString(),
-                    ExtraOperatingTime = fila.GetCell(18).ToString(),
-                    Category = fila.GetCell(19).ToString(),
-                    Images = fila.GetCell(20).ToString(),
-                    Status = fila.GetCell(21).ToString()
-                });
-            }
-                  _dbocontext.BulkInsert(lista);
+                    MiExcel = new XSSFWorkbook(stream);
+                }
+                else
+                {
+                    MiExcel = new HSSFWorkbook(stream);
+                }
 
+                ISheet HojaExcel = MiExcel.GetSheetAt(0);
 
-           return StatusCode(StatusCodes.Status200OK, new { mensaje = "Os dados foram carregados com sucesso!" });
-        }
+                int cantidadFilas = HojaExcel.LastRowNum; //quantidades de linhas do excel
+
+                List<ProdutoDB> lista = new List<ProdutoDB>(); //Criando lista do meu model do banco de dados
+
+                for (int i = 1; i <= cantidadFilas; i++) //contador para ler as linhas do excel
+                {
+
+                    IRow fila = HojaExcel.GetRow(i);
+
+                    lista.Add(new ProdutoDB //adicionando dados a lista
+                    {
+                        Name = fila.GetCell(0).ToString(),
+                        Sku = fila.GetCell(1).ToString(),
+                        Active = "enabled",
+                        Description = fila.GetCell(3).ToString(),
+                        Price = fila.GetCell(4).ToString(),
+                        Qty = fila.GetCell(5).ToString(),
+                        Ean = fila.GetCell(6).ToString(),
+                        SkuManufacturer = fila.GetCell(7).ToString(),
+                        NetWeight = fila.GetCell(8).ToString(),
+                        GrossWeight = fila.GetCell(9).ToString(),
+                        Width = fila.GetCell(10).ToString(),
+                        Height = fila.GetCell(11).ToString(),
+                        Depth = fila.GetCell(12).ToString(),
+                        Guarantee = "1",
+                        Origin = "0",
+                        Unity = "un",
+                        Ncm = fila.GetCell(16).ToString(),
+                        Manufacturer = fila.GetCell(17).ToString(),
+                        ExtraOperatingTime = "1",
+                        Category = fila.GetCell(19).ToString(),
+                        Images = fila.GetCell(20).ToString(),
+                        Status = "0"
+                    });
+                }
+                _dbocontext.BulkInsert(lista);
+                return StatusCode(StatusCodes.Status200OK, new { mensaje = "Os dados foram carregados com sucesso!" }); 
+        } 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

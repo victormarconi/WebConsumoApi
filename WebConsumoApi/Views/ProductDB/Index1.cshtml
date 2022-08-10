@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.SkuManufacturer)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Images)
+                @Html.DisplayNameFor(model => model.Status)
             </th>
             <th></th>
         </tr>
@@ -53,12 +53,11 @@
                 @Html.DisplayFor(modelItem => item.Manufacturer)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Images)
+                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Sku">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Sku">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Sku">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.Sku">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.Sku">Detalhes</a> |
             </td>
         </tr>
 }

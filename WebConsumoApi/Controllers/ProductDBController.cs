@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -38,7 +39,7 @@ namespace WebConsumoApi.Controllers
             var Produto = await _context.Produtos.ToListAsync();
               return View(Produto.Where<ProdutoDB>(p => p.Status == "0"));
         }
-        public async Task<ActionResult> CreateDatabase(ProductInsert productconvert)
+        public async Task<ActionResult> SendToConecta(ProductInsert productconvert)
         {
             var Produtos = await _context.Produtos.Where<ProdutoDB>(p => p.Status == "0").ToListAsync();
 
@@ -87,19 +88,19 @@ namespace WebConsumoApi.Controllers
 
                     req.Content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
                     using var res = await client.SendAsync(req);
-                    //res.EnsureSuccessStatusCode();
+                    res.EnsureSuccessStatusCode();
                     var responseBody = await res.Content.ReadAsStringAsync();
                     var roots = JsonSerializer.Deserialize<Rootobject>(responseBody);
-                   if(res.IsSuccessStatusCode == true)
+              /*      if (res.IsSuccessStatusCode == true)
                     {
                         produto.Status = "1";
                     }
                     else
                     {
                         produto.Status = "2";
-                    }
+                    } */
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     throw;
                 }
@@ -168,7 +169,7 @@ namespace WebConsumoApi.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Name,Sku,Active,Description,Price,Qty,Ean,SkuManufacturer,NetWeight,GrossWeight,Width,Height,Depth,Guarantee,Origin,Unity,Ncm,Manufacturer,ExtraOperatingTime,Category,Images")] ProdutoDB produto)
+        public IActionResult Edit(string id, [Bind("Name,Sku,Active,Description,Price,Qty,Ean,SkuManufacturer,NetWeight,GrossWeight,Width,Height,Depth,Guarantee,Origin,Unity,Ncm,Manufacturer,ExtraOperatingTime,Category,Images")] ProdutoDB produto)
         {
             if (id != produto.Sku)
             {
@@ -180,7 +181,6 @@ namespace WebConsumoApi.Controllers
                 try
                 {
                     _context.Update(produto);
-                    await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {

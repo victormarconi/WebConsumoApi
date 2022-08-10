@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Excel";
 }
 
 
@@ -7,7 +7,7 @@
     <div class="col-sm-12">
 
         <div class="card">
-            <div class="card-header"> Cargar Excel</div>
+            <div class="card-header"> Upload do Excel</div>
             <div class="card-body">
 
                 <div class="row">
@@ -27,7 +27,7 @@
                         <table id="tbData" class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>name</th>
+                                    <th>Nome</th>
                                     <th>Sku</th>
                                 </tr>
                             </thead>
@@ -68,21 +68,9 @@
                         $("<tr>").append(
                             $("<td>").text(item.name),
                             $("<td>").text(item.sku),
-                         /*   $("<td>").text(item.description),
                             $("<td>").text(item.price),
                             $("<td>").text(item.qty),
-                            $("<td>").text(item.ean),
-                            $("<td>").text(item.sku_manufacturer),
-                            $("<td>").text(item.net_weight),
-                            $("<td>").text(item.gross_weight),
-                            $("<td>").text(item.width),
-                            $("<td>").text(item.height),
-                            $("<td>").text(item.depth),
-                            $("<td>").text(item.guarantee),
-                            $("<td>").text(item.ncm),
                             $("<td>").text(item.manufacturer),
-                            $("<td>").text(item.category),
-                            $("<td>").text(item.images), */
                         )
                     
                     )

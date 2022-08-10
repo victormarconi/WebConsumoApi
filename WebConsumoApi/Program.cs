@@ -9,7 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DbProdutosContext>
-    (options => options.UseSqlServer("Server=LAPTOP-SN3G0PN2\\SQLEXPRESS; DataBase=DbProdutos;Integrated Security=true"));
+    (options => options.UseMySql("Server=sql10.freemysqlhosting.net; AllowLoadLocalInfile=true; DataBase=sql10511870; Uid=sql10511870;Pwd=1udxXsDDv6", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.5.62-0ubuntu0.14.04.1")));
+   //(options => options.UseMySql("Server=79.170.44.98:3306; DataBase=sql10511870; UID=sql10511870;PASSWORD=1udxXsDDv6;", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.5.62-0ubuntu0.14.04.1")));
 builder.Services.AddScoped<IProduto, RepositoryProduto>();
 builder.Services.AddSingleton<IProductDB, RepositoryProductDB>();
 
