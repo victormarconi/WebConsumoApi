@@ -52,7 +52,7 @@ namespace WebConsumoApi.Controllers
                     sku = produto.Sku,
                     active = produto.Active,
                     description = produto.Description,
-                    price = Convert.ToSingle(produto.Price),
+                    price = Convert.ToSingle(produto.Price.Replace(',', '.')),
                     qty = Convert.ToInt32(produto.Qty),
                     ean = produto.Ean,
                     sku_manufacturer = produto.SkuManufacturer,
