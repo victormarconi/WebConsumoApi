@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using WebConsumoApi.DBContext;
 using WebConsumoApi.Interfaces;
 using WebConsumoApi.Models;
-using WebConsumoApi.Models.ViewModels;
 using WebConsumoApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DbProdutosContext>
     (options => options.UseMySql("Server=sql10.freemysqlhosting.net; AllowLoadLocalInfile=true; DataBase=sql10511870; Uid=sql10511870;Pwd=1udxXsDDv6", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.5.62-0ubuntu0.14.04.1")));
-   //(options => options.UseMySql("Server=79.170.44.98:3306; DataBase=sql10511870; UID=sql10511870;PASSWORD=1udxXsDDv6;", Microsoft.EntityFrameworkCore.ServerVersion.Parse("5.5.62-0ubuntu0.14.04.1")));
+//(options => options.UseMySql("Server=db4free.net; AllowLoadLocalInfile=true; DataBase=produtos; Uid=rooteradmin;Pwd=rootadmin", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.30")));
 builder.Services.AddScoped<IProduto, RepositoryProduto>();
 builder.Services.AddSingleton<IProductDB, RepositoryProductDB>();
 

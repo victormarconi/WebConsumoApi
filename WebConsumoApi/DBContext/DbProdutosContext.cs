@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebConsumoApi.Models;
 
-namespace WebConsumoApi.Models.ViewModels
+namespace WebConsumoApi.DBContext
 {
     public class DbProdutosContext : DbContext
     {

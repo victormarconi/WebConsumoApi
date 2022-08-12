@@ -8,6 +8,7 @@ using EFCore.BulkExtensions;
 using WebConsumoApi.Models.ViewModels;
 using MySqlConnector;
 using System.Data.SqlClient;
+using WebConsumoApi.DBContext;
 
 namespace WebConsumoApi.Controllers
 {

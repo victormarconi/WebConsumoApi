@@ -6,6 +6,7 @@ using NPOI.HSSF.UserModel;
 using WebConsumoApi.Models.ViewModels;
 using WebConsumoApi.Models;
 using EFCore.BulkExtensions;
+using WebConsumoApi.DBContext;
 
 namespace WebConsumoApi.Controllers
 {

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using WebConsumoApi.DBContext;
 using WebConsumoApi.Interfaces;
 using WebConsumoApi.Models;
-using WebConsumoApi.Models.ViewModels;
 
 namespace WebConsumoApi.Controllers
 {
@@ -39,38 +39,40 @@ namespace WebConsumoApi.Controllers
             var Produto = await _context.Produtos.ToListAsync();
               return View(Produto.Where<ProdutoDB>(p => p.Status == "0"));
         }
-        public async Task<ActionResult> SendToConecta(ProductInsert productconvert)
+        public async Task<IActionResult> SendToConecta(string sku, string motivo, string status)
         {
             var Produtos = await _context.Produtos.Where<ProdutoDB>(p => p.Status == "0").ToListAsync();
 
             foreach (ProdutoDB produto in Produtos)
             {
-                RootobjectInsert raiz = new RootobjectInsert() {
-                     product = new ProductInsert()
+                RootobjectInsert raiz = new RootobjectInsert()
                 {
-                    name = produto.Name,
-                    sku = produto.Sku,
-                    active = produto.Active,
-                    description = produto.Description,
-                    price = Convert.ToSingle(produto.Price.Replace(',', '.')),
-                    qty = Convert.ToInt32(produto.Qty),
-                    ean = produto.Ean,
-                    sku_manufacturer = produto.SkuManufacturer,
-                    net_weight = Convert.ToSingle(produto.NetWeight),
-                    gross_weight = Convert.ToSingle(produto.GrossWeight),
-                    width = Convert.ToSingle(produto.Width),
-                    height = Convert.ToSingle(produto.Height),
-                    depth = Convert.ToSingle(produto.Depth),
-                    items_per_package = 1,
-                    guarantee = Convert.ToInt32(produto.Guarantee),
-                    origin = Convert.ToInt32(produto.Origin),
-                    unity = produto.Unity,
-                    ncm = produto.Ncm,
-                    manufacturer = produto.Manufacturer,
-                    extra_operating_time = Convert.ToInt32(produto.ExtraOperatingTime),
-                    category = produto.Category,
-                    images = produto.Images,
-            } };
+                    product = new ProductInsert()
+                    {
+                        name = produto.Name,
+                        sku = produto.Sku,
+                        active = produto.Active,
+                        description = produto.Description,
+                        price = Convert.ToSingle(produto.Price.Replace(',', '.')),
+                        qty = Convert.ToInt32(produto.Qty),
+                        ean = produto.Ean,
+                        sku_manufacturer = produto.SkuManufacturer,
+                        net_weight = Convert.ToSingle(produto.NetWeight),
+                        gross_weight = Convert.ToSingle(produto.GrossWeight),
+                        width = Convert.ToSingle(produto.Width),
+                        height = Convert.ToSingle(produto.Height),
+                        depth = Convert.ToSingle(produto.Depth),
+                        items_per_package = 1,
+                        guarantee = Convert.ToInt32(produto.Guarantee),
+                        origin = Convert.ToInt32(produto.Origin),
+                        unity = produto.Unity,
+                        ncm = produto.Ncm,
+                        manufacturer = produto.Manufacturer,
+                        extra_operating_time = Convert.ToInt32(produto.ExtraOperatingTime),
+                        category = produto.Category,
+                        images = produto.Images,
+                    }
+                };
 
                 string jsonObjeto = JsonSerializer.Serialize(raiz);
                 var client = new HttpClient
@@ -88,17 +90,23 @@ namespace WebConsumoApi.Controllers
 
                     req.Content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
                     using var res = await client.SendAsync(req);
-                    res.EnsureSuccessStatusCode();
                     var responseBody = await res.Content.ReadAsStringAsync();
+                    res.EnsureSuccessStatusCode();
                     var roots = JsonSerializer.Deserialize<Rootobject>(responseBody);
-              /*      if (res.IsSuccessStatusCode == true)
+                    if (res.IsSuccessStatusCode == true)
                     {
-                        produto.Status = "1";
+                        AtualizaStatus atualiza = new AtualizaStatus();
+                        produto.Status = "2";
+                        atualiza.Atualiza_Status(produto);
+
                     }
                     else
                     {
-                        produto.Status = "2";
-                    } */
+                        AtualizaStatus atualiza = new AtualizaStatus();
+                        produto.Status = "3";
+                        produto.Motivo = res.Content.ReadAsStringAsync().ToString();
+                        atualiza.Atualiza_Status(produto);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -106,7 +114,7 @@ namespace WebConsumoApi.Controllers
                 }
             }
             return View();
-        }
+    }
 
             // GET: Product/Details/5
             public async Task<IActionResult> Details(string id)

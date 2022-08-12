@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebConsumoApi.Models.ViewModels;
+using WebConsumoApi.DBContext;
 
 #nullable disable
 

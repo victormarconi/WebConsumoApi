@@ -4,6 +4,6 @@ namespace WebConsumoApi.Interfaces
 {
     public interface IProductDB
     {
-       Task<Products> CreateDatabase(ProductInsert product, RootobjectInsert root);
+        Task<ProdutoDB> SendToConecta(string sku, string motivo, string status);
     }
 }

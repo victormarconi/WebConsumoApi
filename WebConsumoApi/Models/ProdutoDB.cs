@@ -18,7 +18,6 @@ namespace WebConsumoApi.Models
         [Display(Name = "Estoque")]
         public string Qty { get; set; } = null!;
         public string Ean { get; set; } = null!;
-        [Display(Name = "Marca")]
         public string SkuManufacturer { get; set; } = null!;
         public string NetWeight { get; set; } = null!;
         public string GrossWeight { get; set; } = null!;
@@ -33,6 +32,7 @@ namespace WebConsumoApi.Models
         public string ExtraOperatingTime { get; set; } = null!;
         public string Category { get; set; } = null!;
         public string Images { get; set; } = null!;
-        public string Status { get; set; } = null!;
+        public string? Status { get; set; } = null!;
+        public string? Motivo { get; set; }
     }
 }

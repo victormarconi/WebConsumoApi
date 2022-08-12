@@ -12,11 +12,13 @@
     &nbsp; &nbsp; &nbsp;
     <a asp-action="Index1">Produtos não enviados</a>
 </p>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
+       <div class="container">
+	<div class="row">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
@@ -34,19 +36,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
+            </tr>
+          </thead>
+          @foreach (var item in Model) {
+          <tbody id="myTable">  
+            <tr>
+              <td>
                 <img src="@Html.DisplayFor(modelItem => item.Images)" alt="" height=50 width=50 />
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Active)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
@@ -63,7 +64,14 @@
                 <a asp-action="Edit" asp-route-id="@item.Sku">Editar</a> |
                 <a asp-action="Details" asp-route-id="@item.Sku">Detalhes</a> |
             </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </tr>
+
+          </tbody>
+          }
+        </table>   
+      </div>
+      <div class="col-md-12 text-center">
+      <ul class="pagination pagination-lg pager" id="myPager"></ul>
+      </div>
+	</div>
+</div>
