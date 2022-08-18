@@ -22,6 +22,9 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Sku)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Active)
             </th>
             <th>
@@ -31,7 +34,7 @@
                 @Html.DisplayNameFor(model => model.Qty)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SkuManufacturer)
+                @Html.DisplayNameFor(model => model.Manufacturer)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -44,6 +47,9 @@
               <td>
                 <img src="@Html.DisplayFor(modelItem => item.Images)" alt="" height=50 width=50 />
                 @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sku)
             </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Active)

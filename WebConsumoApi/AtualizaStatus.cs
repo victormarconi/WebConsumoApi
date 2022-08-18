@@ -8,18 +8,19 @@ namespace WebConsumoApi
 {
     public class AtualizaStatus
     {
-        
-        private readonly ApplicationConn1 _Conn1;
         public virtual void Atualiza_Status(ProdutoDB product)
         {
             int i = 0;
-            using (SqlConnection connection = new SqlConnection("Server=sql10.freemysqlhosting.net; AllowLoadLocalInfile=true; DataBase=sql10511870; Uid=sql10511870;Pwd=1udxXsDDv6"))
+            using (SqlConnection connection = new SqlConnection("Server=sql10.freemysqlhosting.net; AllowLoadLocalInfile=true; DataBase=sql10513204; Uid=sql10513204;Pwd=alm9y89Tmw"))
             {
                 SqlCommand command = new SqlCommand("SP_AtualizaStatus", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("Psku", product.Sku);
-                command.Parameters.AddWithValue("Pstatus", product.Status);
-                command.Parameters.AddWithValue("Pmotivo", product.Motivo);
+                var psku = product.Sku;
+                var pstatus = product.Status;
+                var pmotivo = product.Motivo;
+                command.Parameters.AddWithValue("Psku", psku);
+                command.Parameters.AddWithValue("Pstatus", pstatus);
+                command.Parameters.AddWithValue("Pmotivo", pmotivo);
 
                 connection.Open();
                 i = command.ExecuteNonQuery();

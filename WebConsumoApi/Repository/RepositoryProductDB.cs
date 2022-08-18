@@ -55,8 +55,8 @@ namespace WebConsumoApi.Repository
                 try
                 {
                     client.DefaultRequestHeaders.Add("x-user-email", "victor@manairadigital.com.br");
-                    client.DefaultRequestHeaders.Add("x-api-key", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb2Rfc3RvcmUiOjMsImNvZF9jb21wYW55Ijo3fQ.E_sxhnwcmN5GtNGRYbVD66ciMi3JoJNjormS1q3mxYg");
-                    client.DefaultRequestHeaders.Add("x-store-key", "3");
+                    client.DefaultRequestHeaders.Add("x-api-key", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjb2Rfc3RvcmUiOjQsImNvZF9jb21wYW55Ijo3fQ.BTIw_8-pomUDe8j5aPaH7ejf0b0JGE1_ZNavReXjfn4");
+                    client.DefaultRequestHeaders.Add("x-store-key", "4");
                     client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
                     HttpRequestMessage req = new HttpRequestMessage(HttpMethod.Post, "app/Api/V1/Products");
 

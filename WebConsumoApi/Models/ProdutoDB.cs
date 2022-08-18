@@ -7,32 +7,32 @@ namespace WebConsumoApi.Models
     public partial class ProdutoDB
     {
         [Display(Name = "Nome")]
-        public string Name { get; set; } = null!;
+        public string Name { get; set; } = " ";
         [Key]
-        public string Sku { get; set; } = null!;
+        public string Sku { get; set; } = " ";
         [Display(Name = "Ativo")]
-        public string Active { get; set; } = null!;
-        public string Description { get; set; } = null!;
+        public string Active { get; set; } = " ";
+        public string Description { get; set; } = " ";
         [Display(Name = "Preço")]
-        public string Price { get; set; } = null!;
+        public string Price { get; set; } = " ";
         [Display(Name = "Estoque")]
-        public string Qty { get; set; } = null!;
-        public string Ean { get; set; } = null!;
-        public string SkuManufacturer { get; set; } = null!;
-        public string NetWeight { get; set; } = null!;
-        public string GrossWeight { get; set; } = null!;
-        public string Width { get; set; } = null!;
-        public string Height { get; set; } = null!;
-        public string Depth { get; set; } = null!;
-        public string Guarantee { get; set; } = null!;
-        public string Origin { get; set; } = null!;
-        public string Unity { get; set; } = null!;
-        public string Ncm { get; set; } = null!;
-        public string Manufacturer { get; set; } = null!;
-        public string ExtraOperatingTime { get; set; } = null!;
-        public string Category { get; set; } = null!;
-        public string Images { get; set; } = null!;
-        public string? Status { get; set; } = null!;
-        public string? Motivo { get; set; }
+        public string Qty { get; set; } = " ";
+        public string Ean { get; set; } = " ";
+        public string SkuManufacturer { get; set; } = " ";
+        public string NetWeight { get; set; } = " ";
+        public string GrossWeight { get; set; } = " ";
+        public string Width { get; set; } = " ";
+        public string Height { get; set; } = " ";
+        public string Depth { get; set; } = " ";
+        public string Guarantee { get; set; } = " ";
+        public string Origin { get; set; } = " ";
+        public string Unity { get; set; } = " ";
+        public string Ncm { get; set; } = " ";
+        public string Manufacturer { get; set; } = " ";
+        public string ExtraOperatingTime { get; set; } = " ";
+        public string Category { get; set; } = " ";
+        public string Images { get; set; } = " ";
+        public string? Status { get; set; } = " ";
+        public string? Motivo { get; set; } = " ";
     }
 }

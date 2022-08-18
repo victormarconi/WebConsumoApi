@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using EFCore.BulkExtensions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -17,12 +18,14 @@ namespace WebConsumoApi.Controllers
     public class ProductDBController : Controller
     {
         private readonly DbProdutosContext _context;
+        private readonly DbContextLog _logcontext;
         private readonly IProductDB _IProduct;
 
-        public ProductDBController(DbProdutosContext context, IProductDB IProduct)
+        public ProductDBController(DbProdutosContext context, IProductDB IProduct, DbContextLog logcontext)
         {
             _IProduct = IProduct;
             _context = context;
+            _logcontext = logcontext;
         }
 
 
@@ -42,6 +45,7 @@ namespace WebConsumoApi.Controllers
         public async Task<IActionResult> SendToConecta(string sku, string motivo, string status)
         {
             var Produtos = await _context.Produtos.Where<ProdutoDB>(p => p.Status == "0").ToListAsync();
+            var Produtoss = await _logcontext.Log.Where<Log>(p => p.Status == "1").ToListAsync();
 
             foreach (ProdutoDB produto in Produtos)
             {
@@ -91,21 +95,29 @@ namespace WebConsumoApi.Controllers
                     req.Content = new StringContent(jsonObjeto, Encoding.UTF8, "application/json");
                     using var res = await client.SendAsync(req);
                     var responseBody = await res.Content.ReadAsStringAsync();
-                    res.EnsureSuccessStatusCode();
+                   //
+                   //res.EnsureSuccessStatusCode();
                     var roots = JsonSerializer.Deserialize<Rootobject>(responseBody);
                     if (res.IsSuccessStatusCode == true)
                     {
-                        AtualizaStatus atualiza = new AtualizaStatus();
-                        produto.Status = "2";
-                        atualiza.Atualiza_Status(produto);
-
+                        List<Log> Log = new List<Log>();
+                        Log.Add(new Log //adicionando dados a lista
+                        {
+                            Sku = produto.Sku,
+                            Status = "2"
+                        });
+                        _context.BulkInsert(Log);
                     }
                     else
                     {
-                        AtualizaStatus atualiza = new AtualizaStatus();
-                        produto.Status = "3";
-                        produto.Motivo = res.Content.ReadAsStringAsync().ToString();
-                        atualiza.Atualiza_Status(produto);
+                        List<Log> Log = new List<Log>();
+                        Log.Add(new Log //adicionando dados a lista
+                        {
+                            Sku = produto.Sku,
+                            Status = "3",
+                            Motivo = responseBody
+                        });
+                       _context.BulkInsert(Log);
                     }
                 }
                 catch (Exception ex)
