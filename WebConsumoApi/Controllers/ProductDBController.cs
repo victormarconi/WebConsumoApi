@@ -45,7 +45,6 @@ namespace WebConsumoApi.Controllers
         public async Task<IActionResult> SendToConecta(string sku, string motivo, string status)
         {
             var Produtos = await _context.Produtos.Where<ProdutoDB>(p => p.Status == "0").ToListAsync();
-            var Produtoss = await _logcontext.Log.Where<Log>(p => p.Status == "1").ToListAsync();
 
             foreach (ProdutoDB produto in Produtos)
             {
@@ -100,24 +99,19 @@ namespace WebConsumoApi.Controllers
                     var roots = JsonSerializer.Deserialize<Rootobject>(responseBody);
                     if (res.IsSuccessStatusCode == true)
                     {
-                        List<Log> Log = new List<Log>();
-                        Log.Add(new Log //adicionando dados a lista
-                        {
-                            Sku = produto.Sku,
-                            Status = "2"
-                        });
-                        _context.BulkInsert(Log);
+                        produto.Status = "2";
+                        produto.Motivo = responseBody;
+                        _context.Update(produto);
+                        await _context.SaveChangesAsync();
+                        _context.SaveChanges();
                     }
                     else
                     {
-                        List<Log> Log = new List<Log>();
-                        Log.Add(new Log //adicionando dados a lista
-                        {
-                            Sku = produto.Sku,
-                            Status = "3",
-                            Motivo = responseBody
-                        });
-                       _context.BulkInsert(Log);
+                        produto.Status = "3";
+                        produto.Motivo = responseBody;
+                        _context.Update(produto);
+                        await _context.SaveChangesAsync();
+                        _context.SaveChanges();
                     }
                 }
                 catch (Exception ex)
@@ -125,8 +119,8 @@ namespace WebConsumoApi.Controllers
                     throw;
                 }
             }
-            return View();
-    }
+            return RedirectToAction(nameof(Index1));
+        }
 
             // GET: Product/Details/5
             public async Task<IActionResult> Details(string id)
